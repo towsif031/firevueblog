@@ -30,7 +30,7 @@
 							>Blogs</router-link
 						>
 						<router-link
-							v-if="admin"
+							v-if="user"
 							class="link"
 							:to="{ name: 'CreatePost' }"
 							>Create Post</router-link
