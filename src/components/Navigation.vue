@@ -15,7 +15,7 @@
 						>Blogs</router-link
 					>
 					<router-link class="link" to="#">Create Post</router-link>
-					<router-link class="link" to="#"
+					<router-link class="link" :to="{ name: 'Login' }"
 						>Login/Register</router-link
 					>
 				</ul>
@@ -31,7 +31,9 @@
 					>Blogs</router-link
 				>
 				<router-link class="link" to="#">Create Post</router-link>
-				<router-link class="link" to="#">Login/Register</router-link>
+				<router-link class="link" :to="{ name: 'Login' }"
+					>Login/Register</router-link
+				>
 			</ul>
 		</transition>
 	</header>
