@@ -38,19 +38,38 @@
 import email from '../assets/Icons/envelope-regular.svg';
 import Modal from '../components/Modal.vue';
 import Loading from '../components/Loading.vue';
+import firebase from 'firebase/app';
+import 'firebase/auth';
 
 export default {
 	name: 'ForgotPassword',
 	components: { email, Modal, Loading },
 	data() {
 		return {
-			email: null,
+			email: '',
 			modalActive: false,
 			modalMessage: '',
 			loading: null
 		};
 	},
 	methods: {
+		resetPassword() {
+			this.loading = true;
+			firebase
+				.auth()
+				.sendPasswordResetEmail(this.email)
+				.then(() => {
+					this.modalMessage =
+						'If your account exists, your will receive an email';
+					this.loading = false;
+					this.modalActive = true;
+				})
+				.catch((err) => {
+					this.modalMessage = err.message;
+					this.loading = false;
+					this.modalActive = true;
+				});
+		},
 		closeModal() {
 			this.modalActive = !this.modalActive;
 			this.email = '';
