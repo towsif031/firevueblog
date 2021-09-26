@@ -19,9 +19,9 @@
 						>Login/Register</router-link
 					>
 				</ul>
-				<div class="profile" ref="profile">
+				<div @click="toggleProfileMenu" class="profile" ref="profile">
 					<span>{{ this.$store.state.profileInitials }}</span>
-					<div class="profile-menu">
+					<div v-show="profileMenu" class="profile-menu">
 						<div class="info">
 							<p class="initials">
 								{{ this.$store.state.profileInitials }}
@@ -48,7 +48,7 @@
 									<p>Admin</p>
 								</router-link>
 							</div>
-							<div class="option">
+							<div @click="signOut" class="option">
 								<signOutIcon class="icon" />
 								<p>Sign Out</p>
 							</div>
@@ -80,6 +80,8 @@ import menuIcon from '../assets/Icons/bars-regular.svg';
 import userIcon from '../assets/Icons/user-alt-light.svg';
 import adminIcon from '../assets/Icons/user-crown-light.svg';
 import signOutIcon from '../assets/Icons/sign-out-alt-regular.svg';
+import firebase from 'firebase/app';
+import 'firebase/auth';
 
 export default {
 	name: 'Navigation',
@@ -91,6 +93,7 @@ export default {
 	},
 	data() {
 		return {
+			profileMenu: null,
 			mobile: null,
 			mobileNav: null,
 			windowWidth: null
@@ -112,9 +115,17 @@ export default {
 			this.mobileNav = false;
 			return;
 		},
-
 		toggleMobileNav() {
 			this.mobileNav = !this.mobileNav;
+		},
+		toggleProfileMenu(e) {
+			if (e.target === this.$refs.profile) {
+				this.profileMenu = !this.profileMenu;
+			}
+		},
+		signOut() {
+			firebase.auth().signOut();
+			window.location.reload();
 		}
 	}
 };
